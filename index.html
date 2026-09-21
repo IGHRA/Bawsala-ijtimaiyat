@@ -1,388 +1,19 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوصلة الاجتماعيات 2026 — رفيق الأستاذ للدعم والمعالجة</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        :root {
-            --primary: #1b3a4b;
-            --secondary: #006466;
-            --accent: #d4a373;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text: #0f172a;
-        }
-
-        body.dark-mode {
-            --bg: #0f172a;
-            --card-bg: #1e293b;
-            --text: #f8fafc;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
-        body { background-color: var(--bg); color: var(--text); transition: 0.3s; }
-
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white; padding: 20px; text-align: center;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-
-        .main-layout { display: flex; min-height: calc(100vh - 70px); }
-
-        sidebar {
-            width: 270px; background: var(--card-bg); border-left: 1px solid #e2e8f0;
-            padding: 20px; display: flex; flex-direction: column; gap: 10px;
-        }
-
-        sidebar button {
-            background: none; border: none; padding: 12px 15px; text-align: right;
-            border-radius: 8px; cursor: pointer; color: var(--text); font-weight: 600;
-            display: flex; align-items: center; gap: 10px; transition: 0.2s;
-        }
-
-        sidebar button:hover, sidebar button.active {
-            background-color: var(--secondary); color: white;
-        }
-
-        main { flex: 1; padding: 25px; }
-
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-
-        .card {
-            background: var(--card-bg); padding: 20px; border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 20px;
-        }
-
-        .session-card {
-            border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px;
-            margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
-        }
-
-        .text-link { color: var(--primary); text-decoration: underline dotted; cursor: pointer; font-weight: bold; }
-
-        .status-btn {
-            padding: 6px 14px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold;
-            display: inline-flex; align-items: center; gap: 5px; transition: 0.2s;
-        }
-        .status-not-started { background: #e2e8f0; color: #475569; }
-        .status-in-progress { background: #fef08a; color: #854d0e; }
-        .status-completed { background: #bbf7d0; color: #166534; }
-        .btn-ppt { background-color: #ea580c; color: white; }
-        .btn-drive { background-color: #0f9d58; color: white; }
-        .btn-cancel { background-color: #ef4444; color: white; }
-        .btn-save { background-color: #2563eb; color: white; }
-        .btn-generator { background-color: #d97706; color: white; }
-
-        .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center;
-        }
-
-        .modal-content {
-            background: var(--card-bg); width: 90%; max-width: 850px; height: 85vh;
-            border-radius: 12px; display: flex; flex-direction: column; overflow: hidden;
-        }
-
-        .modal-header {
-            background: var(--primary); color: white; padding: 15px;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-
-        .modal-body { flex: 1; padding: 20px; overflow-y: auto; }
-
-        .word-span { cursor: pointer; padding: 2px 4px; border-radius: 4px; }
-        .word-span.highlight { background-color: #fef08a; font-weight: bold; }
-        .word-span.error { background-color: #fca5a5; text-decoration: line-through; }
-
-        .answer-box { display: none; background: #f1f5f9; padding: 10px; border-radius: 6px; margin-top: 5px; color: #1e293b; }
-
-        .control-bar { display: flex; gap: 10px; background: #e2e8f0; padding: 10px; border-radius: 8px; margin-bottom: 15px; flex-wrap: wrap; }
-
-        /* منطقة البطاقة التقنية للمعالجة */
-        .tech-card-box {
-            background: #f0fdf4; border: 2px dashed #006466; border-radius: 8px;
-            padding: 15px; margin-bottom: 20px; text-align: center;
-        }
-
-        .drive-input-box {
-            display: none; margin-top: 10px; gap: 10px; align-items: center; justify-content: center;
-        }
-
-        input, select, textarea {
-            width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 12px;
-            border: 1px solid #cbd5e1; border-radius: 6px; font-family: 'Tajawal', sans-serif;
-        }
-
-        .modal-footer {
-            padding: 12px 20px; background: #f1f5f9; border-top: 1px solid #e2e8f0;
-            display: flex; justify-content: flex-end; gap: 10px;
-        }
-
-        /* تنسيقات معاينة البطاقة الرسمية للطباعة */
-        .printable-card {
-            border: 2px solid #000; padding: 15px; background: #fff; color: #000; direction: rtl; font-size: 14px;
-        }
-        .printable-card table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .printable-card th, .printable-card td { border: 1px solid #000; padding: 6px; text-align: center; }
-        .printable-card th { background-color: #fde047; font-weight: bold; }
-        .card-header-yellow { background-color: #facc15; border: 2px solid #000; text-align: center; font-weight: bold; padding: 8px; font-size: 18px; margin: 10px 0; }
-        .card-header-blue { background-color: #1e3a8a; color: white; padding: 5px 10px; font-weight: bold; margin-top: 5px; }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h2>🧭 بوصلة الاجتماعيات — حصص المعالجة المكثفة 2026</h2>
-        <button onclick="toggleDarkMode()" style="background:none; border:none; color:white; font-size:1.2rem; cursor:pointer;">
-            <i class="fa-solid fa-moon"></i>
-        </button>
-    </header>
-
-    <div class="main-layout">
-        <sidebar>
-            <button class="nav-btn active" onclick="switchTab('compass', this)"><i class="fa-solid fa-compass"></i> البوصلة والحصص</button>
-            <button class="nav-btn" onclick="switchTab('terms', this)"><i class="fa-solid fa-book-bookmark"></i> المصطلحات والمفاهيم</button>
-            <button class="nav-btn" onclick="switchTab('settings', this)"><i class="fa-solid fa-gear"></i> الإعدادات والأقسام</button>
-            <button class="nav-btn" onclick="switchTab('backup', this)"><i class="fa-solid fa-database"></i> النسخ الاحتياطي</button>
-        </sidebar>
-
-        <main>
-            <!-- تبويب البوصلة والحصص -->
-            <div id="compass" class="tab-content active">
-                <div class="card">
-                    <h3>اختيار القسم والمكون</h3>
-                    <div style="display: flex; gap: 15px;">
-                        <select id="sectionSelect" onchange="loadSessions()">
-                            <option value="">-- اختر القسم --</option>
-                        </select>
-                        <select id="subjectSelect" onchange="loadSessions()">
-                            <option value="جميع المكونات">جميع المكونات</option>
-                            <option value="التاريخ">التاريخ</option>
-                            <option value="الجغرافيا">الجغرافيا</option>
-                            <option value="التربية على المواطنة">التربية على المواطنة</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3>جدول حصص الدعم والمعالجة المكثفة</h3>
-                    <div id="sessionsContainer" style="margin-top:15px;">
-                        <p style="color:#64748b;">يرجى اختيار القسم لعرض الحصص والبطاقات التقنية.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- تبويب المصطلحات والمفاهيم -->
-            <div id="terms" class="tab-content">
-                <div class="card">
-                    <h3>المفاهيم والمصطلحات الهيكلية</h3>
-                    <input type="text" id="termSearch" placeholder="🔍 بحث عن مصطلح..." onkeyup="filterTerms()" style="margin-bottom:15px;">
-                    <div id="termsList">
-                        <div class="term-card" style="padding:10px; border-bottom:1px solid #eee;">
-                            <b>النهج التاريخي:</b> خطوات منهجية تعتمد (التعريف، التفسير، والتركيب).
-                        </div>
-                        <div class="term-card" style="padding:10px; border-bottom:1px solid #eee;">
-                            <b>النهج الجغرافي:</b> خطوات منهجية تعتمد (الوصف، التفسير، والتعميم).
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- تبويب الإعدادات -->
-            <div id="settings" class="tab-content">
-                <div class="card">
-                    <h3>معلومات الأستاذ والبرنامج</h3>
-                    <label>الأكاديمية الجهوية:</label> <input type="text" id="academyInput">
-                    <label>المديرية الإقليمية:</label> <input type="text" id="directorateInput">
-                    <label>المؤسسة التعليمية:</label> <input type="text" id="schoolInput">
-                    <label>اسم الأستاذ(ة):</label> <input type="text" id="teacherInput">
-                    <button class="status-btn status-completed" onclick="saveSettings()"><i class="fa-solid fa-floppy-disk"></i> حفظ البيانات</button>
-                </div>
-
-                <div class="card">
-                    <h3>إدارة الأقسام</h3>
-                    <label>اسم القسم (مثال: 1APIC_1):</label> <input type="text" id="newSectionName">
-                    <button class="status-btn status-completed" onclick="addSection()"><i class="fa-solid fa-plus"></i> إضافة قسم</button>
-                </div>
-            </div>
-
-            <!-- تبويب النسخ الاحتياطي -->
-            <div id="backup" class="tab-content">
-                <div class="card">
-                    <h3>تصدير واستيراد البيانات</h3>
-                    <button class="status-btn status-completed" onclick="exportData()"><i class="fa-solid fa-download"></i> تصدير البيانات (JSON)</button>
-                    <br><br>
-                    <input type="file" id="importFile" onchange="importData(event)">
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <!-- نافذة استثمار النص والبطاقة التقنية للحصة -->
-    <div id="textModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalTitle">اسم الحصة / الدعامة</h3>
-                <button onclick="closeModal()" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">&times;</button>
-            </div>
-            
-            <div class="modal-body">
-                <!-- قسم البطاقة التقنية للدعم والمعالجة (حاسوب / درايف / إنشاء) -->
-                <div class="tech-card-box">
-                    <h4><i class="fa-solid fa-file-powerpoint" style="color:#ea580c;"></i> البطاقة التقنية لحصة المعالجة المكثفة</h4>
-                    <p style="font-size:0.85rem; color:#475569; margin: 5px 0 10px 0;">يمكنك إرفاق ملف من الحاسوب، إضافة رابط Drive، أو إنشاء بطاقة تقنية جديدة بملء البيانات:</p>
-
-                    <div id="techFileStatus" style="margin-bottom:10px; font-weight:bold;"></div>
-
-                    <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
-                        <input type="file" id="cardFileInput" accept=".pdf,.ppt,.pptx,.doc,.docx" style="display:none;" onchange="handleLocalFileUpload(event)">
-                        <button class="status-btn btn-ppt" onclick="document.getElementById('cardFileInput').click()"><i class="fa-solid fa-desktop"></i> رفع من الحاسوب</button>
-                        <button class="status-btn btn-drive" onclick="toggleDriveInput()"><i class="fa-brands fa-google-drive"></i> رابط Drive</button>
-                        <button class="status-btn btn-generator" onclick="openCardBuilder()"><i class="fa-solid fa-pen-to-square"></i> إعداد بطاقة تقنية جديدة</button>
-                        <button id="viewCardBtn" class="status-btn status-completed" style="display:none;" onclick="openTechCard()"><i class="fa-solid fa-eye"></i> استعراض / طباعة البطاقة</button>
-                    </div>
-
-                    <!-- حقل أدخال رابط Google Drive -->
-                    <div id="driveInputBox" class="drive-input-box">
-                        <input type="url" id="driveUrlInput" placeholder="أدخل رابط مشاركة Google Drive..." style="margin:0; width: 70%;">
-                        <button class="status-btn btn-save" onclick="saveDriveLink()"><i class="fa-solid fa-check"></i> تأكيد الرابط</button>
-                    </div>
-                </div>
-
-                <!-- شريط أدوات الحصة -->
-                <div class="control-bar">
-                    <button class="status-btn status-completed" onclick="startTimer()"><i class="fa-solid fa-play"></i> مؤقت الحصة</button>
-                    <span id="timerDisplay" style="font-weight:bold; align-self:center;">02:00</span>
-                    <button class="status-btn status-not-started" onclick="toggleAnswers()"><i class="fa-solid fa-eye"></i> عناصر الإجابة</button>
-                    <button class="status-btn status-not-started" onclick="changeFontSize(2)">A+</button>
-                    <button class="status-btn status-not-started" onclick="changeFontSize(-2)">A-</button>
-                </div>
-
-                <!-- نص الدعامة -->
-                <div id="textContainer" style="font-size: 18px; line-height: 2; margin-bottom: 25px; border-bottom: 1px solid #ddd; padding-bottom: 15px;"></div>
-
-                <!-- الأنشطة -->
-                <div id="activitiesContainer">
-                    <h4><i class="fa-solid fa-list-check"></i> أنشطة المعالجة والاستثمار:</h4>
-                    <div style="margin-top:10px;">
-                        <p><b>1. حدد الفكرة الأساسية للنص/الدعامة:</b></p>
-                        <button class="status-btn status-in-progress" style="font-size:0.8rem; margin:5px 0;" onclick="toggleSingleAnswer('ans1')">إظهار الإجابة <i class="fa-solid fa-eye"></i></button>
-                        <div id="ans1" class="answer-box">يتناول النص الممارسة المعرفية والتعثرات الملاحظة أثناء الحصة.</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- شريط الحفظ والإلغاء السفلي للنافذة -->
-            <div class="modal-footer">
-                <button class="status-btn btn-save" onclick="saveModalChanges()"><i class="fa-solid fa-floppy-disk"></i> حفظ التغيرات</button>
-                <button class="status-btn btn-cancel" onclick="closeModal()"><i class="fa-solid fa-xmark"></i> إلغاء</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- نافذة إعداد وإنشاء البطاقة التقنية -->
-    <div id="cardBuilderModal" class="modal">
-        <div class="modal-content" style="max-width: 900px;">
-            <div class="modal-header" style="background: #d97706;">
-                <h3><i class="fa-solid fa-file-signature"></i> نموذج إعداد البطاقة التقنية للحصة (TaRL)</h3>
-                <button onclick="closeCardBuilder()" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <div><label>المكون:</label><input type="text" id="cardSubject" value="الجغرافيا"></div>
-                    <div><label>المستوى الدراسي:</label><input type="text" id="cardLevel" value="الثالثة ثانوي إعدادي"></div>
-                    <div><label>الأسبوع / المدة الزمنية:</label><input type="text" id="cardDuration" value="55 دقيقة"></div>
-                    <div><label>المهمة:</label><input type="text" id="cardTask" value="الوصف الجغرافي بتوظيف مفاهيم مورفولوجيا والتوطين والحركة من خلال وثيقتين"></div>
-                </div>
-
-                <label>خطوات إنجاز المهمة (خطوة في كل سطر):</label>
-                <textarea id="cardSteps" rows="3">1. فهم المطلوب جيدا وتفكيك عناصره لوصف ظاهرة جغرافية.
-2. استخراج المؤشرات الدالة على وصف الظاهرة الجغرافية.
-3. صياغة جمل وصفية لظاهرة جغرافية بتوظيف المفاهيم.</textarea>
-
-                <h4 style="margin: 15px 0 5px 0; color: #006466;">هيكلة الحصة:</h4>
-                <div style="border:1px solid #cbd5e1; padding:10px; border-radius:6px; background:#f8fafc;">
-                    <p><b>1. افتتاح الحصة (15 دقيقة):</b></p>
-                    <input type="text" id="step1Desc" value="نشاط اعتيادي (مسابقة تاريخية) / حديث غير رسمي / التصريح بالأهداف">
-                    <input type="text" id="step1Resources" value="الحامل الرقمي من ص 14 إلى ص 23">
-
-                    <p><b>2. النمذجة (10 دقائق):</b></p>
-                    <input type="text" id="step2Desc" value="التعرف على مفهوم الوصف الجغرافي واستخراج المؤشرات الدالة">
-                    <input type="text" id="step2Resources" value="الحامل الرقمي من ص 27 إلى ص 32">
-
-                    <p><b>3. الممارسة الثنائية (15 دقيقة):</b></p>
-                    <input type="text" id="step3Desc" value="تقديم وصف جغرافي بتوظيف المفاهيم بشكل ثنائي">
-                    <input type="text" id="step3Resources" value="الحامل الرقمي من ص 35 إلى ص 37">
-
-                    <p><b>4. الممارسة المستقلة (10 دقائق):</b></p>
-                    <input type="text" id="step4Desc" value="الاشتغال بشكل فردي لوصف ظاهرة جغرافية + تمرين التحدي">
-                    <input type="text" id="step4Resources" value="الحامل الرقمي من ص 39 إلى ص 43">
-
-                    <p><b>5. اختتام الحصة (5 دقائق):</b></p>
-                    <input type="text" id="step5Desc" value="التذكير بهدف الحصة والتذكير بخلاصة التعلم والواجب المنزلي">
-                    <input type="text" id="step5Resources" value="الحامل الرقمي من ص 45 إلى ص 48">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="status-btn btn-save" onclick="generateAndSaveCard()"><i class="fa-solid fa-circle-check"></i> توليد وحفظ البطاقة التقنية</button>
-                <button class="status-btn btn-cancel" onclick="closeCardBuilder()"><i class="fa-solid fa-xmark"></i> إلغاء</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- نافذة المعاينة والطباعة للبطاقة المولدَة -->
-    <div id="cardPreviewModal" class="modal">
-        <div class="modal-content" style="max-width: 900px;">
-            <div class="modal-header">
-                <h3>معاينة البطاقة التقنية الحالية</h3>
-                <button onclick="document.getElementById('cardPreviewModal').style.display='none'" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">&times;</button>
-            </div>
-            <div class="modal-body" id="printableArea">
-                <!-- سيتم ملء هذا الجزء بديناميكية -->
-            </div>
-            <div class="modal-footer">
-                <button class="status-btn status-completed" onclick="printCard()"><i class="fa-solid fa-print"></i> طباعة / حفظ PDF</button>
-                <button class="status-btn btn-cancel" onclick="document.getElementById('cardPreviewModal').style.display='none'">إغلاق</button>
-            </div>
-        </div>
-    </div>
-
     <script>
         let currentSessionId = null;
         let tempTechCard = null;
 
         let appData = JSON.parse(localStorage.getItem('bawsala_history_data')) || {
             settings: { academy: 'جهة درعة تافيلالت', directorate: 'مديرية زاكورة', school: 'ثانوية أفلاندرا التأهيلية', teacher: 'مولاي احفيظ الزاهي' },
-            sections: ['1APIC_1', '1APIC_2'],
+            sections: ['1/1', '1/2', '1/3', '1/4', '3/3', '3/4'],
             sessions: [
-                { id: 1, section: '1APIC_1', subject: 'التاريخ', title: 'حصة المعالجة 1: قراءة النصوص التاريخية 📜', status: 0, date: '', techCard: null },
-                { id: 2, section: '1APIC_1', subject: 'الجغرافيا', title: 'حصة المعالجة 2: استقراء الخرائط الجغرافية 🗺️', status: 0, date: '', techCard: null }
-{ id: 1, section: '1APIC_2', subject: 'التاريخ', title: 'حصة المعالجة 1: قراءة النصوص التاريخية 📜', status: 0, date: '', techCard: null },
-                { id: 2, section: '1APIC_2', subject: 'الجغرافيا', title: 'حصة المعالجة 2: استقراء الخرائط الجغرافية 🗺️', status: 0, date: '', techCard: null }
-{ id: 1, section: '1APIC_3', subject: 'التاريخ', title: 'حصة المعالجة 1: قراءة النصوص التاريخية 📜', status: 0, date: '', techCard: null },
-                { id: 2, section: '1APIC_3', subject: 'الجغرافيا', title: 'حصة المعالجة 2: استقراء الخرائط الجغرافية 🗺️', status: 0, date: '', techCard: null }
-{ id: 1, section: '1APIC_4', subject: 'التاريخ', title: 'حصة المعالجة 1: قراءة النصوص التاريخية 📜', status: 0, date: '', techCard: null },
-                { id: 2, section: '1APIC_4', subject: 'الجغرافيا', title: 'حصة المعالجة 2: استقراء الخرائط الجغرافية 🗺️', status: 0, date: '', techCard: null }
-{ id: 1, section: '1APIC_1', subject: 'التربية على المواطنة', title: 'حصة المعالجة 1: التربية على المواطنة 📜', status: 0, date: '', techCard: null },
-                { id: 2, section: '1APIC_2', subject: 'التربية على المواطنة', title: 'حصة المعالجة 2:  🗺️', status: 0, date: '', techCard: null }{ id: 1, section: '1APIC_3', subject: 'التربية على المواطنة', title: 'حصة المعالجة 1:التربية على المواطنة 📜', status: 0, date: '', techCard: null },
-                { id: 2, section: '1APIC_4', subject: 'التربية على المواطنة ', title: 'حصة المعالجة 2:  🗺️', status: 0, date: '', techCard: null }
-{ id: 1, section: '3APIC_3', subject: 'التاريخ', title: 'حصة المعالجة 1: قراءة النصوص التاريخية 📜', status: 0, date: '', techCard: null },
-                { id: 2, section: '3APIC_3', subject: 'الجغرافيا', title: 'حصة المعالجة 2: استقراء الخرائط الجغرافية 🗺️', status: 0, date: '', techCard: null }
-{ id: 2, section: '3APIC_3', subject: 'التربية على المواطنة ', title: 'حصة المعالجة 2:  🗺️', status: 0, date: '', techCard: null }
-{ id: 1, section: '3APIC_4', subject: 'التاريخ', title: 'حصة المعالجة 1: قراءة النصوص التاريخية 📜', status: 0, date: '', techCard: null },
-                { id: 2, section: '3APIC_4', subject: 'الجغرافيا', title: 'حصة المعالجة 2: استقراء الخرائط الجغرافية 🗺️', status: 0, date: '', techCard: null }
-{ id: 2, section: '3APIC_4', subject: 'التربية على المواطنة ', title: 'حصة المعالجة 2:  🗺️', status: 0, date: '', techCard: null }
+                { id: 1, section: '1/1', subject: 'التاريخ', title: 'حصة المعالجة 1: قراءة النصوص التاريخية 📜', status: 0, date: '', techCard: null },
+                { id: 2, section: '1/1', subject: 'الجغرافيا', title: 'حصة المعالجة 2: استقراء الخرائط الجغرافية 🗺️', status: 0, date: '', techCard: null }
             ]
         };
 
-        function saveData() { localStorage.setItem('bawsala_history_data', JSON.stringify(appData)); }
+        function saveData() { 
+            localStorage.setItem('bawsala_history_data', JSON.stringify(appData)); 
+        }
 
         function switchTab(tabId, btn) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -414,6 +45,7 @@
 
         function renderSections() {
             const select = document.getElementById('sectionSelect');
+            if(!select) return;
             select.innerHTML = '<option value="">-- اختر القسم --</option>';
             appData.sections.forEach(sec => {
                 select.innerHTML += `<option value="${sec}">${sec}</option>`;
@@ -424,6 +56,7 @@
             const selectedSec = document.getElementById('sectionSelect').value;
             const selectedSub = document.getElementById('subjectSelect').value;
             const container = document.getElementById('sessionsContainer');
+            if(!container) return;
             container.innerHTML = '';
 
             let filtered = appData.sessions.filter(s => s.section === selectedSec);
@@ -468,7 +101,7 @@
         function openTextModal(sessionId) {
             currentSessionId = sessionId;
             const session = appData.sessions.find(s => s.id === sessionId);
-            tempTechCard = session.techCard ? { ...session.techCard } : null;
+            tempTechCard = session.techCard ? JSON.parse(JSON.stringify(session.techCard)) : null;
             
             document.getElementById('modalTitle').innerText = session.title;
             const text = "تعتبر الممارسة المعرفية في مادة الاجتماعيات مدخلاً أساسياً لفهم المجال الجغرافي والزمني، حيث يعتمد التحليل التاريخي والجغرافي على استقراء النصوص والوثائق الرسمية لاستخلاص المفاهيم والعوامل.";
@@ -522,7 +155,6 @@
             updateTechCardUI();
         }
 
-        // ---------- محرك إعداد وتوليد البطاقة التقنية ----------
         function openCardBuilder() {
             document.getElementById('cardBuilderModal').style.display = 'flex';
         }
@@ -661,54 +293,15 @@
         }
 
         function saveModalChanges() {
-            if(currentSessionId) {
-                const session = appData.sessions.find(s => s.id === currentSessionId);
-                // فتح النافذة وتحميل بيانات الحصة الحالية بشكل صحيح
-function openTextModal(sessionId) {
-    currentSessionId = sessionId;
-    const session = appData.sessions.find(s => s.id === sessionId);
-    
-    // استرجاع البطاقة التقنية المسجلة سابقاً للحصة إن وجدت
-    tempTechCard = session.techCard ? JSON.parse(JSON.stringify(session.techCard)) : null;
-    
-    document.getElementById('modalTitle').innerText = session.title;
-    
-    // تحميل نص الحصة (أو نص افتراضي)
-    const text = session.textContent || "تعتبر الممارسة المعرفية في مادة الاجتماعيات مدخلاً أساسياً لفهم المجال الجغرافي والزمني، حيث يعتمد التحليل التاريخي والجغرافي على استقراء النصوص والوثائق الرسمية لاستخلاص المفاهيم والعوامل.";
-    document.getElementById('textContainer').innerHTML = text.split(' ').map(word => `<span class="word-span" onclick="highlightWord(this)" ondblclick="markError(this)">${word}</span>`).join(' ');
-
-    document.getElementById('driveInputBox').style.display = 'none';
-    document.getElementById('driveUrlInput').value = '';
-
-    updateTechCardUI();
-    document.getElementById('textModal').style.display = 'flex';
-}
-
-// زر "حفظ التغييرات" - يقوم بالتعديل الفعلي والتخزين المباشر
-function saveModalChanges() {
-    if (currentSessionId !== null) {
-        // 1. البحث عن الحصة المطلوبة داخل المصفوفة
-        const sessionIndex = appData.sessions.findIndex(s => s.id === currentSessionId);
-        
-        if (sessionIndex !== -1) {
-            // 2. تحديث بيانات البطاقة التقنية داخل الكائن
-            appData.sessions[sessionIndex].techCard = tempTechCard;
-            
-            // 3. حفظ البيانات في LocalStorage
-            saveData();
-            
-            // 4. إعادة تحميل قائمة الحصص في الواجهة الرئيسية فوراً لتظهر كلمة "بطاقة مرفقة"
-            loadSessions();
-            
-            // 5. إغلاق النافذة وتنظيف الملاحظات المؤقتة
-            closeModal();
-            
-            // تنبيه نجاح الحفظ
-            alert('تم حفظ التغييرات والبطاقة التقنية للحصة بنجاح! 💾');
-        }
-    }
-}
-
+            if (currentSessionId !== null && currentSessionId !== undefined) {
+                const sessionIndex = appData.sessions.findIndex(s => s.id === currentSessionId);
+                if (sessionIndex !== -1) {
+                    appData.sessions[sessionIndex].techCard = tempTechCard;
+                    saveData();
+                    loadSessions();
+                    closeModal();
+                    alert('تم حفظ التغييرات بنجاح! 💾');
+                }
             }
         }
 
@@ -783,13 +376,11 @@ function saveModalChanges() {
 
         window.onload = function() {
             renderSections();
-            if(appData.settings.teacher) {
-                document.getElementById('teacherInput').value = appData.settings.teacher;
-                document.getElementById('schoolInput').value = appData.settings.school;
-                document.getElementById('academyInput').value = appData.settings.academy;
-                document.getElementById('directorateInput').value = appData.settings.directorate;
+            if(appData.settings && appData.settings.teacher) {
+                if(document.getElementById('teacherInput')) document.getElementById('teacherInput').value = appData.settings.teacher;
+                if(document.getElementById('schoolInput')) document.getElementById('schoolInput').value = appData.settings.school;
+                if(document.getElementById('academyInput')) document.getElementById('academyInput').value = appData.settings.academy;
+                if(document.getElementById('directorateInput')) document.getElementById('directorateInput').value = appData.settings.directorate;
             }
         };
     </script>
-</body>
-</html>
