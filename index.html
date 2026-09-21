@@ -364,6 +364,21 @@
             sessions: [
                 { id: 1, section: '1APIC_1', subject: 'التاريخ', title: 'حصة المعالجة 1: قراءة النصوص التاريخية 📜', status: 0, date: '', techCard: null },
                 { id: 2, section: '1APIC_1', subject: 'الجغرافيا', title: 'حصة المعالجة 2: استقراء الخرائط الجغرافية 🗺️', status: 0, date: '', techCard: null }
+{ id: 1, section: '1APIC_2', subject: 'التاريخ', title: 'حصة المعالجة 1: قراءة النصوص التاريخية 📜', status: 0, date: '', techCard: null },
+                { id: 2, section: '1APIC_2', subject: 'الجغرافيا', title: 'حصة المعالجة 2: استقراء الخرائط الجغرافية 🗺️', status: 0, date: '', techCard: null }
+{ id: 1, section: '1APIC_3', subject: 'التاريخ', title: 'حصة المعالجة 1: قراءة النصوص التاريخية 📜', status: 0, date: '', techCard: null },
+                { id: 2, section: '1APIC_3', subject: 'الجغرافيا', title: 'حصة المعالجة 2: استقراء الخرائط الجغرافية 🗺️', status: 0, date: '', techCard: null }
+{ id: 1, section: '1APIC_4', subject: 'التاريخ', title: 'حصة المعالجة 1: قراءة النصوص التاريخية 📜', status: 0, date: '', techCard: null },
+                { id: 2, section: '1APIC_4', subject: 'الجغرافيا', title: 'حصة المعالجة 2: استقراء الخرائط الجغرافية 🗺️', status: 0, date: '', techCard: null }
+{ id: 1, section: '1APIC_1', subject: 'التربية على المواطنة', title: 'حصة المعالجة 1: التربية على المواطنة 📜', status: 0, date: '', techCard: null },
+                { id: 2, section: '1APIC_2', subject: 'التربية على المواطنة', title: 'حصة المعالجة 2:  🗺️', status: 0, date: '', techCard: null }{ id: 1, section: '1APIC_3', subject: 'التربية على المواطنة', title: 'حصة المعالجة 1:التربية على المواطنة 📜', status: 0, date: '', techCard: null },
+                { id: 2, section: '1APIC_4', subject: 'التربية على المواطنة ', title: 'حصة المعالجة 2:  🗺️', status: 0, date: '', techCard: null }
+{ id: 1, section: '3APIC_3', subject: 'التاريخ', title: 'حصة المعالجة 1: قراءة النصوص التاريخية 📜', status: 0, date: '', techCard: null },
+                { id: 2, section: '3APIC_3', subject: 'الجغرافيا', title: 'حصة المعالجة 2: استقراء الخرائط الجغرافية 🗺️', status: 0, date: '', techCard: null }
+{ id: 2, section: '3APIC_3', subject: 'التربية على المواطنة ', title: 'حصة المعالجة 2:  🗺️', status: 0, date: '', techCard: null }
+{ id: 1, section: '3APIC_4', subject: 'التاريخ', title: 'حصة المعالجة 1: قراءة النصوص التاريخية 📜', status: 0, date: '', techCard: null },
+                { id: 2, section: '3APIC_4', subject: 'الجغرافيا', title: 'حصة المعالجة 2: استقراء الخرائط الجغرافية 🗺️', status: 0, date: '', techCard: null }
+{ id: 2, section: '3APIC_4', subject: 'التربية على المواطنة ', title: 'حصة المعالجة 2:  🗺️', status: 0, date: '', techCard: null }
             ]
         };
 
@@ -648,11 +663,52 @@
         function saveModalChanges() {
             if(currentSessionId) {
                 const session = appData.sessions.find(s => s.id === currentSessionId);
-                session.techCard = tempTechCard;
-                saveData();
-                loadSessions();
-                closeModal();
-                alert('تم حفظ التغييرات بنجاح! 💾');
+                // فتح النافذة وتحميل بيانات الحصة الحالية بشكل صحيح
+function openTextModal(sessionId) {
+    currentSessionId = sessionId;
+    const session = appData.sessions.find(s => s.id === sessionId);
+    
+    // استرجاع البطاقة التقنية المسجلة سابقاً للحصة إن وجدت
+    tempTechCard = session.techCard ? JSON.parse(JSON.stringify(session.techCard)) : null;
+    
+    document.getElementById('modalTitle').innerText = session.title;
+    
+    // تحميل نص الحصة (أو نص افتراضي)
+    const text = session.textContent || "تعتبر الممارسة المعرفية في مادة الاجتماعيات مدخلاً أساسياً لفهم المجال الجغرافي والزمني، حيث يعتمد التحليل التاريخي والجغرافي على استقراء النصوص والوثائق الرسمية لاستخلاص المفاهيم والعوامل.";
+    document.getElementById('textContainer').innerHTML = text.split(' ').map(word => `<span class="word-span" onclick="highlightWord(this)" ondblclick="markError(this)">${word}</span>`).join(' ');
+
+    document.getElementById('driveInputBox').style.display = 'none';
+    document.getElementById('driveUrlInput').value = '';
+
+    updateTechCardUI();
+    document.getElementById('textModal').style.display = 'flex';
+}
+
+// زر "حفظ التغييرات" - يقوم بالتعديل الفعلي والتخزين المباشر
+function saveModalChanges() {
+    if (currentSessionId !== null) {
+        // 1. البحث عن الحصة المطلوبة داخل المصفوفة
+        const sessionIndex = appData.sessions.findIndex(s => s.id === currentSessionId);
+        
+        if (sessionIndex !== -1) {
+            // 2. تحديث بيانات البطاقة التقنية داخل الكائن
+            appData.sessions[sessionIndex].techCard = tempTechCard;
+            
+            // 3. حفظ البيانات في LocalStorage
+            saveData();
+            
+            // 4. إعادة تحميل قائمة الحصص في الواجهة الرئيسية فوراً لتظهر كلمة "بطاقة مرفقة"
+            loadSessions();
+            
+            // 5. إغلاق النافذة وتنظيف الملاحظات المؤقتة
+            closeModal();
+            
+            // تنبيه نجاح الحفظ
+            alert('تم حفظ التغييرات والبطاقة التقنية للحصة بنجاح! 💾');
+        }
+    }
+}
+
             }
         }
 
