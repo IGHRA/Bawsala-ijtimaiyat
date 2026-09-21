@@ -174,7 +174,7 @@
             color: #4b5563;
         }
 
-        /* زر طباعة وطاولات التتبع */
+        /* أزرار تحميل الموارد */
         .btn-action {
             background-color: var(--secondary);
             color: white;
@@ -187,10 +187,19 @@
             align-items: center;
             gap: 8px;
             margin-top: 10px;
+            text-decoration: none;
+            font-size: 0.95rem;
         }
 
         .btn-action:hover {
             background-color: var(--primary);
+        }
+
+        .btn-computer {
+            background-color: #2563eb;
+        }
+        .btn-computer:hover {
+            background-color: #1d4ed8;
         }
 
         footer {
@@ -214,6 +223,10 @@
             <input type="text" id="teacherName" placeholder="اسم الأستاذ(ة)..." onchange="saveConfig()">
             <input type="text" id="schoolName" placeholder="اسم المؤسسة..." onchange="saveConfig()">
             <input type="text" id="academicYear" value="2025/2026" onchange="saveConfig()">
+                   <input type="text" id="schoolName" placeholder="الاكاديمية الجهوية..." onchange="saveConfig()">
+             <input type="text" id="schoolName" placeholder="االمديرية..." onchange="saveConfig()">
+             <input type="text" id="schoolName" placeholder="القسم..." onchange="saveConfig()">
+              <input type="text" id="schoolName" placeholder="المادة..." onchange="saveConfig()">
         </div>
     </header>
 
@@ -222,6 +235,7 @@
         <button class="tab-btn active" onclick="openTab('terms')"><i class="fa-solid fa-book-bookmark"></i> المصطلحات والمفاهيم</button>
         <button class="tab-btn" onclick="openTab('methodology')"><i class="fa-solid fa-compass-drafting"></i> شبكات النهج المادي</button>
         <button class="tab-btn" onclick="openTab('documents')"><i class="fa-solid fa-file-pdf"></i> مولّد الوثائق (PDF)</button>
+        <button class="tab-btn" onclick="openTab('pc')"><i class="fa-solid fa-desktop"></i> الوصول إلى الحاسوب</button>
         <button class="tab-btn" onclick="openTab('tracking')"><i class="fa-solid fa-chart-user"></i> تتبّع التعثرات والتقويم</button>
     </nav>
 
@@ -265,7 +279,7 @@
                     <h3><i class="fa-solid fa-hourglass-start"></i> خطوات النهج التاريخي</h3>
                     <ul>
                         <li><b>1. التعريف:</b> تحديد المفهوم التاريخي، الزمان، والمكان.</li>
-                        <li><b>2. التفسير:</b> البحث عن الأسباب والأوامل المفسرة للحدث.</li>
+                        <li><b>2. التفسير:</b> البحث عن الأسباب والعوامل المفسرة للحدث.</li>
                         <li><b>3. التركيب:</b> ربط الأسباب بالنتائج وصياغة خلاصة تركيبية.</li>
                     </ul>
                 </div>
@@ -274,7 +288,7 @@
                     <h3><i class="fa-solid fa-globe"></i> خطوات النهج الجغرافي</h3>
                     <ul>
                         <li><b>1. الوصف:</b> تحديد شكل الظاهرة، توزيعها الجغرافي وتطورها.</li>
-                        <li><b>2. التفسير:</b> الكشف عن العوامل والأسسباب المفسرة لبنية الظاهرة.</li>
+                        <li><b>2. التفسير:</b> الكشف عن العوامل والأسباب المفسرة لبنية الظاهرة.</li>
                         <li><b>3. التعميم:</b> استخلاص مبادئ أو قوانين تعمم على ظواهر مماثلة.</li>
                     </ul>
                 </div>
@@ -285,11 +299,36 @@
         <div id="documents" class="tab-content">
             <div class="card">
                 <h3><i class="fa-solid fa-print"></i> استخراج الوثائق التربوية الجاهزة</h3>
-                <p>يمكنك تحميل وتوليد وثائقك الرسمية المخصصة بناءً على البيانات التي أدخلتها في الأعلى (الاسم والمؤسسة):</p>
+                <p>اضغط على أي زر أدناه لتصفح أو تحميل الوثائق الرسمية مباشرة:</p>
+                
                 <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button class="btn-action" onclick="printDoc('دفتر النصوص')"><i class="fa-solid fa-download"></i> غلاف دفتر النصوص</button>
-                    <button class="btn-action" onclick="printDoc('بطاقة تقنية للدرس')"><i class="fa-solid fa-download"></i> البطاقة التقنية (الجذاذة)</button>
-                    <button class="btn-action" onclick="printDoc('شبكة التقويم التشخيصي')"><i class="fa-solid fa-download"></i> شبكة تفريغ التقويم</button>
+                    <a href="https://drive.google.com" target="_blank" class="btn-action">
+                        <i class="fa-solid fa-file-pdf"></i> غلاف دفتر النصوص
+                    </a>
+                    <a href="https://drive.google.com" target="_blank" class="btn-action">
+                        <i class="fa-solid fa-file-pdf"></i> البطاقة التقنية (الجذاذة)
+                    </a>
+                    <a href="https://drive.google.com" target="_blank" class="btn-action">
+                        <i class="fa-solid fa-file-pdf"></i> شبكة تفريغ التقويم
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- تبويب الوصول إلى الحاسوب -->
+        <div id="pc" class="tab-content">
+            <div class="card">
+                <h3><i class="fa-solid fa-laptop-code"></i> استعراض وفتح ملفات الحاسوب المحلية</h3>
+                <p>يمكنك استخدام الأزرار التالية لاستعراض ملفات الحاسوب الخاص بك أو العرض المباشر:</p>
+                
+                <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 15px; max-width: 500px;">
+                    <!-- زر فتح ملف من الحاسوب -->
+                    <label class="btn-action btn-computer" style="cursor: pointer; width: fit-content;">
+                        <i class="fa-solid fa-folder-open"></i> استعراض ملفات الحاسوب (Open Local File)
+                        <input type="file" id="localFileInput" style="display: none;" onchange="openLocalFile(event)">
+                    </label>
+
+                    <div id="fileStatus" style="font-size: 0.95rem; color: #166534; font-weight: bold;"></div>
                 </div>
             </div>
         </div>
@@ -316,7 +355,9 @@
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             
             document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
+            if(event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
         }
 
         // إظهار وإخفاء شرح المصطلحات
@@ -325,7 +366,7 @@
             desc.style.display = (desc.style.display === 'block') ? 'none' : 'block';
         }
 
-        // تصفية وحث المصطلحات
+        // تصفية وبحث المصطلحات
         function filterTerms() {
             let input = document.getElementById('searchInput').value.toLowerCase();
             let items = document.querySelectorAll('.term-item');
@@ -334,6 +375,16 @@
                 let text = item.innerText.toLowerCase();
                 item.style.display = text.includes(input) ? 'block' : 'none';
             });
+        }
+
+        // دالة فتح ملف محلي من الحاسوب
+        function openLocalFile(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const fileURL = URL.createObjectURL(file);
+                window.open(fileURL, '_blank');
+                document.getElementById('fileStatus').innerText = `تم فتح الملف: ${file.name}`;
+            }
         }
 
         // حفظ البيانات محلياً على الجهاز
@@ -349,12 +400,6 @@
             if(localStorage.getItem('schoolName')) document.getElementById('schoolName').value = localStorage.getItem('schoolName');
             if(localStorage.getItem('academicYear')) document.getElementById('academicYear').value = localStorage.getItem('academicYear');
         };
-
-        function printDoc(docName) {
-            let teacher = document.getElementById('teacherName').value || "الأستاذ(ة)";
-            let school = document.getElementById('schoolName').value || "المؤسسة التعليمية";
-            alert(`جاري إعداد وثيقة "${docName}" الخاصة بـ ${teacher} بالمؤسسة: ${school}`);
-        }
     </script>
 </body>
 </html>
