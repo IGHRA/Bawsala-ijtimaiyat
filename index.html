@@ -1,34 +1,4 @@
-         <div id="terms" class="tab-content">
-                <div class="card">
-                    <h3>المفاهيم والمصطلحات الهيكلية</h3>
-                    <input type="text" id="termSearch" placeholder="🔍 بحث عن مصطلح..." onkeyup="filterTerms()" style="margin-bottom:15px;">
-                    <div id="termsList">
-                        <div class="term-card" style="padding:10px; border-bottom:1px solid #eee;">
-                            <b>النهج التاريخي:</b> خطوات منهجية تعتمد (التعريف، التفسير، والتركيب).
-                        </div>
-                        <div class="term-card" style="padding:10px; border-bottom:1px solid #eee;">
-                            <b>النهج الجغرافي:</b> خطوات منهجية تعتمد (الوصف، التفسير، والتعميم).
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- تبويب الإعدادات -->
-            <div id="settings" class="tab-content">
-                <div class="card">
-                    <h3>معلومات الأستاذ والبرنامج</h3>
-                    <label>الأكاديمية الجهوية:</label> <input type="text" id="academyInput">
-                    <label>المديرية الإقليمية:</label> <input type="text" id="directorateInput">
-                    <label>المؤسسة التعليمية:</label> <input type="text" id="schoolInput">
-                    <label>اسم الأستاذ(ة):</label> <input type="text" id="teacherInput">
-                    <button class="status-btn status-completed" onclick="saveSettings()"><i class="fa-solid fa-floppy-disk"></i> حفظ البيانات</button>
-                </div>
-
-                <div class="card">
-                    <h3>إدارة الأقسام</h3>
-                    <label>اسم القسم (مثال: 1APIC_1):</label> <input type="text" id="newSectionName">
-                    <button class="status-btn status-completed" onclick="addSection()"><i class="fa-solid fa-plus"></i> إضافة قسم</button>
-                </div><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -210,7 +180,37 @@
             </div>
 
             <!-- تبويب المصطلحات والمفاهيم -->
-   
+            <div id="terms" class="tab-content">
+                <div class="card">
+                    <h3>المفاهيم والمصطلحات الهيكلية</h3>
+                    <input type="text" id="termSearch" placeholder="🔍 بحث عن مصطلح..." onkeyup="filterTerms()" style="margin-bottom:15px;">
+                    <div id="termsList">
+                        <div class="term-card" style="padding:10px; border-bottom:1px solid #eee;">
+                            <b>النهج التاريخي:</b> خطوات منهجية تعتمد (التعريف، التفسير، والتركيب).
+                        </div>
+                        <div class="term-card" style="padding:10px; border-bottom:1px solid #eee;">
+                            <b>النهج الجغرافي:</b> خطوات منهجية تعتمد (الوصف، التفسير، والتعميم).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تبويب الإعدادات -->
+            <div id="settings" class="tab-content">
+                <div class="card">
+                    <h3>معلومات الأستاذ والبرنامج</h3>
+                    <label>الأكاديمية الجهوية:</label> <input type="text" id="academyInput">
+                    <label>المديرية الإقليمية:</label> <input type="text" id="directorateInput">
+                    <label>المؤسسة التعليمية:</label> <input type="text" id="schoolInput">
+                    <label>اسم الأستاذ(ة):</label> <input type="text" id="teacherInput">
+                    <button class="status-btn status-completed" onclick="saveSettings()"><i class="fa-solid fa-floppy-disk"></i> حفظ البيانات</button>
+                </div>
+
+                <div class="card">
+                    <h3>إدارة الأقسام</h3>
+                    <label>اسم القسم (مثال: 1APIC_1):</label> <input type="text" id="newSectionName">
+                    <button class="status-btn status-completed" onclick="addSection()"><i class="fa-solid fa-plus"></i> إضافة قسم</button>
+                </div>
             </div>
 
             <!-- تبويب النسخ الاحتياطي -->
