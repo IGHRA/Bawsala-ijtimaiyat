@@ -3,408 +3,590 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوصلة المسارات — رفيق أستاذ العربية (TARL)</title>
+    <title>بوصلة الاجتماعيات 2026 — رفيق أستاذ الاجتماعيات</title>
     <!-- خط تجوال وأيقونات FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
     <style>
         :root {
-            --primary: #1e3a8a;
-            --secondary: #0d9488;
-            --accent: #f59e0b;
-            --bg: #f8fafc;
+            --primary: #1b3a4b;
+            --secondary: #006466;
+            --accent: #d4a373;
+            --bg-light: #f8f9fa;
             --card-bg: #ffffff;
-            --text: #0f172a;
+            --text-color: #2b2d42;
         }
 
-        body.dark-mode {
-            --bg: #0f172a;
-            --card-bg: #1e293b;
-            --text: #f8fafc;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
-        body { background-color: var(--bg); color: var(--text); transition: 0.3s; }
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
 
-        /* الشفرة العلوية والجريان */
+        /* الهيدر الرئيسي */
         header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white; padding: 20px; text-align: center;
-            display: flex; justify-content: space-between; align-items: center;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .main-layout { display: flex; min-height: calc(100vh - 70px); }
-
-        /* القائمة الجانبية */
-        sidebar {
-            width: 260px; background: var(--card-bg); border-left: 1px solid #e2e8f0;
-            padding: 20px; display: flex; flex-direction: column; gap: 10px;
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            font-weight: 800;
         }
 
-        sidebar button {
-            background: none; border: none; padding: 12px 15px; text-align: right;
-            border-radius: 8px; cursor: pointer; color: var(--text); font-weight: 600;
-            display: flex; align-items: center; gap: 10px; transition: 0.2s;
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
         }
 
-        sidebar button:hover, sidebar button.active {
-            background-color: var(--secondary); color: white;
+        .teacher-info-bar {
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
-        /* حاوية المحتوى */
-        main { flex: 1; padding: 25px; }
+        .teacher-info-bar input {
+            padding: 6px 12px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 5px;
+            background: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+            outline: none;
+        }
 
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        /* شريط التبويبات */
+        nav {
+            background-color: #111827;
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: #d1d5db;
+            padding: 14px 20px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav button:hover, nav button.active {
+            color: white;
+            background-color: var(--secondary);
+            border-bottom: 3px solid var(--accent);
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 15px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* البطاقات والشبكة */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
 
         .card {
-            background: var(--card-bg); padding: 20px; border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 20px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+            border-right: 5px solid var(--secondary);
+            margin-bottom: 20px;
         }
 
-        /* تصميم الحصص والمراحل */
-        .session-card {
-            border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px;
-            margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .text-link { color: var(--primary); text-decoration: underline dotted; cursor: pointer; font-weight: bold; }
-
-        .status-btn {
-            padding: 6px 14px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold;
-        }
-        .status-not-started { background: #e2e8f0; color: #475569; }
-        .status-in-progress { background: #fef08a; color: #854d0e; }
-        .status-completed { background: #bbf7d0; color: #166534; }
-
-        /* نافذة النص والأنشطة (Modal) */
-        .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center;
+        /* أداة المصطلحات */
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1rem;
         }
 
-        .modal-content {
-            background: var(--card-bg); width: 90%; max-width: 800px; height: 85vh;
-            border-radius: 12px; display: flex; flex-direction: column; overflow: hidden;
+        .term-item {
+            background: #f3f4f6;
+            margin-bottom: 10px;
+            padding: 12px;
+            border-radius: 8px;
         }
 
-        .modal-header {
-            background: var(--primary); color: white; padding: 15px;
-            display: flex; justify-content: space-between; align-items: center;
+        .term-title {
+            font-weight: bold;
+            color: var(--primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
         }
 
-        .modal-body { flex: 1; padding: 20px; overflow-y: auto; }
+        .term-desc {
+            display: none;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.95rem;
+            color: #4b5563;
+        }
 
-        /* أداة القراءة والأخطاء */
-        .word-span { cursor: pointer; padding: 2px 4px; border-radius: 4px; }
-        .word-span.error { background-color: #fca5a5; text-decoration: line-through; }
-        .word-span.last-read { border-bottom: 3px solid var(--secondary); font-weight: bold; }
+        /* أزرار العامة */
+        .btn-action {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
 
-        .answer-box { display: none; background: #f1f5f9; padding: 10px; border-radius: 6px; margin-top: 5px; color: #1e293b; }
+        .btn-action:hover {
+            background-color: var(--primary);
+        }
 
-        .control-bar { display: flex; gap: 10px; background: #e2e8f0; padding: 10px; border-radius: 8px; margin-bottom: 15px; }
+        /* تصميم منطقة رفع الملفات */
+        .upload-area {
+            border: 2px dashed #006466;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            background: #f0fdf4;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .upload-area:hover {
+            background: #e6f4f1;
+        }
 
-        input, select {
-            width: 100%; padding: 10px; margin-top: 8px; margin-bottom: 15px;
-            border: 1px solid #cbd5e1; border-radius: 6px;
+        /* قائمة الملفات المرفوعة */
+        .file-list {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .file-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .file-icon {
+            font-size: 1.5rem;
+        }
+
+        .icon-pdf { color: #dc2626; }
+        .icon-word { color: #2563eb; }
+        .icon-ppt { color: #ea580c; }
+        .icon-excel { color: #16a34a; }
+        .icon-generic { color: #6b7280; }
+
+        .file-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: white;
+        }
+
+        .btn-view { background-color: #2563eb; }
+        .btn-download { background-color: #059669; }
+        .btn-delete { background-color: #dc2626; }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #111827;
+            color: white;
+            margin-top: 50px;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
+    <!-- الهيدر والمعلومات الشخصية -->
     <header>
-        <h2>🧭 بوصلة المسارات — TARL 2026</h2>
-        <button onclick="toggleDarkMode()" style="background:none; border:none; color:white; font-size:1.2rem; cursor:pointer;">
-            <i class="fa-solid fa-moon"></i>
-        </button>
+        <h1>🧭 بوصلة الاجتماعيات 2026</h1>
+        <p>رفيقك الرقمي لتدبير حصص ودعامات مادة الاجتماعيات — الثانوي الإعدادي</p>
+        
+        <div class="teacher-info-bar">
+            <input type="text" id="teacherName" placeholder="اسم الأستاذ(ة)..." onchange="saveConfig()">
+            <input type="text" id="schoolName" placeholder="اسم المؤسسة..." onchange="saveConfig()">
+   <input type="text" id="schoolName" placeholder="اسم المؤسسة..." onchange="saveConfig()">
+             <input type="text" id="schoolName" placeholder="الاكاديمية الجهوية..." onchange="saveConfig()">
+             <input type="text" id="schoolName" placeholder="االمديرية..." onchange="saveConfig()">
+             <input type="text" id="schoolName" placeholder="القسم..." onchange="saveConfig()">
+              <input type="text" id="schoolName" placeholder="المادة..." onchange="saveConfig()">
+            <input type="text" id="academicYear" value="2025/2026" onchange="saveConfig()">
+        </div>
     </header>
 
-    <div class="main-layout">
-        <!-- القائمة الجانبية -->
-        <sidebar>
-            <button class="nav-btn active" onclick="switchTab('compass', this)"><i class="fa-solid fa-compass"></i> البوصلة والحصص</button>
-            <button class="nav-btn" onclick="switchTab('settings', this)"><i class="fa-solid fa-gear"></i> الإعدادات والأقسام</button>
-            <button class="nav-btn" onclick="switchTab('backup', this)"><i class="fa-solid fa-database"></i> النسخ الاحتياطي</button>
-        </sidebar>
+    <!-- شريط التبويبات -->
+    <nav>
+        <button class="tab-btn active" onclick="openTab('terms')"><i class="fa-solid fa-book-bookmark"></i> المصطلحات والمفاهيم</button>
+        <button class="tab-btn" onclick="openTab('methodology')"><i class="fa-solid fa-compass-drafting"></i> شبكات النهج المادي</button>
+        <button class="tab-btn" onclick="openTab('documents')"><i class="fa-solid fa-file-pdf"></i> مولّد الوثائق (PDF)</button>
+        <button class="tab-btn" onclick="openTab('pc')"><i class="fa-solid fa-desktop"></i> رفع وحفظ ملفات الحاسوب</button>
+        <button class="tab-btn" onclick="openTab('tracking')"><i class="fa-solid fa-chart-user"></i> تتبّع التعثرات والتقويم</button>
+    </nav>
 
-        <!-- المحتوى الرئيسي -->
-        <main>
+    <div class="container">
 
-            <!-- تبويب البوصلة والحصص -->
-            <div id="compass" class="tab-content active">
-                <div class="card">
-                    <h3>اختيار القسم </h3>
-                    <select id="sectionSelect" onchange="loadSessions()">
-                        <option value="">-- اختر القسم --</option>
-                    </select>
-                </div>
-
-                <div class="card">
-                    <h3>حصص المعالجة المكثفة</h3>
-                    <div id="sessionsContainer" style="margin-top:15px;">
-                        <p style="color:#64748b;">يرجى اختيار القسم لعرض الحصص واللبنات.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- تبويب الإعدادات -->
-            <div id="settings" class="tab-content">
-                <div class="card">
-                    <h3>معلومات الأستاذ والمؤسسة</h3>
-                    <label>الأكاديمية:</label> <input type="text" id="academyInput">
-                    <label>المديرية:</label> <input type="text" id="directorateInput">
-                    <label>المؤسسة:</label> <input type="text" id="schoolInput">
-                    <label>اسم الأستاذ(ة):</label> <input type="text" id="teacherInput">
-                    <button class="status-btn status-completed" onclick="saveSettings()">حفظ البيانات</button>
-                </div>
-
-                <div class="card">
-                    <h3>إدارة الأقسام</h3>
-                    <label>اسم القسم (مثال: 1/5):</label> <input type="text" id="newSectionName">
-                    <button class="status-btn status-completed" onclick="addSection()">إضافة قسم</button>
-                </div>
-            </div>
-
-            <!-- تبويب النسخ الاحتياطي -->
-            <div id="backup" class="tab-content">
-                <div class="card">
-                    <h3>تصدير واستيراد البيانات</h3>
-                    <p style="margin-bottom:15px; color:#64748b;">يمكنك حفظ نسخة احتياطية من جميع بياناتك لاسترجاعها في أي وقت أو نقلها لجهاز آخر.</p>
-                    <button class="status-btn status-completed" onclick="exportData()"><i class="fa-solid fa-download"></i> تصدير البيانات (JSON)</button>
-                    <br><br>
-                    <input type="file" id="importFile" onchange="importData(event)">
-                </div>
-            </div>
-
-        </main>
-    </div>
-
-    <!-- نافذة النص والأنشطة التفاعلية -->
-    <div id="textModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalTitle">عنوان النص</h3>
-                <button onclick="closeModal()" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">&times;</button>
-            </div>
+        <!-- تبويب المصطلحات -->
+        <div id="terms" class="tab-content active">
+            <input type="text" id="searchInput" class="search-box" placeholder="🔍 إبحث عن مصطلح أو مفهوم (تاريخ، جغرافيا، مواطنة)..." onkeyup="filterTerms()">
             
-            <div class="modal-body">
-                <!-- شريط أدوات القراءة -->
-                <div class="control-bar">
-                    <button class="status-btn status-completed" onclick="startTimer()"><i class="fa-solid fa-play"></i> بدء المؤقت</button>
-                    <span id="timerDisplay" style="font-weight:bold; align-self:center;">01:00</span>
-                    <span style="align-self:center;">الأخطاء: <b id="errorCount" style="color:red;">0</b></span>
-                    <button class="status-btn status-not-started" onclick="toggleAnswers()"><i class="fa-solid fa-eye"></i> إظهار/إخفاء الأجوبة</button>
-                    <button class="status-btn status-not-started" onclick="changeFontSize(2)">A+</button>
-                    <button class="status-btn status-not-started" onclick="changeFontSize(-2)">A-</button>
-                </div>
-
-                <!-- نص القراءة -->
-                <div id="textContainer" style="font-size: 18px; line-height: 2; margin-bottom: 25px; border-bottom: 1px solid #ddd; padding-bottom: 15px;">
-                    <!-- يتم ملؤه تفاعلياً بواسطة JavaScript -->
-                </div>
-
-                <!-- أنشطة الحصة والأسئلة -->
-                <div id="activitiesContainer">
-                    <h4><i class="fa-solid fa-list-check"></i> أنشطة الحصة:</h4>
-                    <div style="margin-top:10px;">
-                        <p><b>السؤال 1:</b> ما هي الفكرة العامة للنص؟</p>
-                        <button class="status-btn status-in-progress" style="font-size:0.8rem; margin:5px 0;" onclick="toggleSingleAnswer('ans1')">إظهار الإجابة <i class="fa-solid fa-eye"></i></button>
-                        <div id="ans1" class="answer-box">يتناول النص أهمية القراءة والسلوك المدني في بناء المجتمع.</div>
+            <div id="termsList">
+                <div class="term-item">
+                    <div class="term-title" onclick="toggleDesc(this)">
+                        <span>النهج التاريخي (التاريخ)</span>
+                        <i class="fa-solid fa-chevron-down"></i>
                     </div>
+                    <div class="term-desc">خطوات منهجية يعتمدها المؤرخ لدراسة الأحداث الماضية وتتكون من ثلاث مراحل: التعريف، التفسير، والتركيب.</div>
+                </div>
+
+                <div class="term-item">
+                    <div class="term-title" onclick="toggleDesc(this)">
+                        <span>المجال الجغرافي (الجغرافيا)</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="term-desc">الإطار المكاني الذي تتفاعل فيه الظواهر الطبيعية والبشرية والتجهيزات الاقتصادية.</div>
+                </div>
+
+                <div class="term-item">
+                    <div class="term-title" onclick="toggleDesc(this)">
+                        <span>السلوك المدني (التربية على المواطنة)</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="term-desc">كل ممارسة أفراد ومجموعات تعكس الالتزام بالقوانين واحترام حقوق الآخرين والحفاظ على المصلحة العامة.</div>
                 </div>
             </div>
         </div>
+
+        <!-- تبويب شبكات النهج المادي -->
+        <div id="methodology" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <h3><i class="fa-solid fa-hourglass-start"></i> خطوات النهج التاريخي</h3>
+                    <ul>
+                        <li><b>1. التعريف:</b> تحديد المفهوم التاريخي، الزمان، والمكان.</li>
+                        <li><b>2. التفسير:</b> البحث عن الأسباب والعوامل المفسرة للحدث.</li>
+                        <li><b>3. التركيب:</b> ربط الأسباب بالنتائج وصياغة خلاصة تركيبية.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-globe"></i> خطوات النهج الجغرافي</h3>
+                    <ul>
+                        <li><b>1. الوصف:</b> تحديد شكل الظاهرة، توزيعها الجغرافي وتطورها.</li>
+                        <li><b>2. التفسير:</b> الكشف عن العوامل والأسباب المفسرة لبنية الظاهرة.</li>
+                        <li><b>3. التعميم:</b> استخلاص مبادئ أو قوانين تعمم على ظواهر مماثلة.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- تبويب مولد الوثائق -->
+        <div id="documents" class="tab-content">
+            <div class="card">
+                <h3><i class="fa-solid fa-print"></i> استخراج الوثائق التربوية الجاهزة</h3>
+                <p>اضغط على أي زر أدناه لتصفح أو تحميل الوثائق الرسمية مباشرة:</p>
+                
+                <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+                    <a href="https://drive.google.com" target="_blank" class="btn-action">
+                        <i class="fa-solid fa-file-pdf"></i> غلاف دفتر النصوص
+                    </a>
+                    <a href="https://drive.google.com" target="_blank" class="btn-action">
+                        <i class="fa-solid fa-file-pdf"></i> البطاقة التقنية (الجذاذة)
+                    </a>
+                    <a href="https://drive.google.com" target="_blank" class="btn-action">
+                        <i class="fa-solid fa-file-pdf"></i> شبكة تفريغ التقويم
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- تبويب رفع وحفظ ملفات الحاسوب -->
+        <div id="pc" class="tab-content">
+            <div class="card">
+                <h3><i class="fa-solid fa-cloud-arrow-up"></i> رفع وحفظ المستندات والدروس (PDF, Word, PPT)</h3>
+                <p style="margin-bottom:15px;">رفع ملفاتك الخاصة للحفظ الدائم داخل المتصفح لسهولة فتحها أو تنزيلها في أي وقت:</p>
+
+                <!-- منطقة الرفع -->
+                <div class="upload-area" onclick="document.getElementById('fileUploadInput').click()">
+                    <i class="fa-solid fa-folder-plus" style="font-size: 2.5rem; color: #006466; margin-bottom: 10px;"></i>
+                    <p style="font-weight: bold;">اضغط هنا لرفع الملفات من حاسوبك</p>
+                    <p style="font-size: 0.85rem; color: #6b7280;">يدعم ملفات: PDF, Word (DOCX), PowerPoint (PPTX), Excel وغيرها</p>
+                    <input type="file" id="fileUploadInput" multiple style="display: none;" onchange="handleFileUpload(event)">
+                </div>
+            </div>
+
+            <!-- قائمة الملفات المرفوعة والمحفوظة -->
+            <div class="card">
+                <h3><i class="fa-solid fa-box-archive"></i> الملفات المحفوظة (<span id="fileCount">0</span>)</h3>
+                <div id="fileListContainer" class="file-list">
+                    <p style="color:#6b7280; text-align:center; padding: 10px;">لا توجد ملفات محفوظة حالياً. قم برفع ملفاتك لتبقى محفوظة هنا.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- تبويب تتبع التعثرات -->
+        <div id="tracking" class="tab-content">
+            <div class="card">
+                <h3><i class="fa-solid fa-list-check"></i> بطاقة تتبّع مهارات الاجتماعيات</h3>
+                <p>تتبع مدى تحكم التلاميذ في المهارات الأساسية (تحليل نصوص، توطين في الخريطة، قراءة خط زمني).</p>
+                <button class="btn-action" style="margin-top:15px;"><i class="fa-solid fa-plus"></i> إضافة قسم جديد</button>
+            </div>
+        </div>
+
     </div>
 
+    <footer>
+        <p>جميع الحقوق محفوظة &copy; 2026 — تطبيق «بوصلة الاجتماعيات»</p>
+    </footer>
+
     <script>
-        // ------- إدارة البيانات المحلية (LocalStorage) -------
-        let appData = JSON.parse(localStorage.getItem('bawsala_data')) || {
-            settings: { academy: '', directorate: '', school: '', teacher: '' },
-            sections: ['1/1', '1/2'],
-            sessions: [
-                { id: 1, section: '1/1', title: 'النص الأول: التعاون والتضامن 📖', status: 0, date: '' },
-                { id: 2, section: '1/1', title: 'النص الثاني: المواطنة الفاعلة 📖', status: 0, date: '' }
-            ]
+        // التبديل بين التبويبات
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            if(event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+        }
+
+        // إظهار وإخفاء شرح المصطلحات
+        function toggleDesc(element) {
+            let desc = element.nextElementSibling;
+            desc.style.display = (desc.style.display === 'block') ? 'none' : 'block';
+        }
+
+        // تصفية وبحث المصطلحات
+        function filterTerms() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let items = document.querySelectorAll('.term-item');
+
+            items.forEach(item => {
+                let text = item.innerText.toLowerCase();
+                item.style.display = text.includes(input) ? 'block' : 'none';
+            });
+        }
+
+        // ------- نظام إدارة وحفظ الملفات المحلي (IndexedDB) -------
+        let db;
+        const request = indexedDB.open("BawsalaDB", 1);
+
+        request.onupgradeneeded = function(e) {
+            db = e.target.result;
+            if (!db.objectStoreNames.contains("files")) {
+                db.createObjectStore("files", { keyPath: "id", autoIncrement: true });
+            }
         };
 
-        function saveData() {
-            localStorage.setItem('bawsala_data', JSON.stringify(appData));
-        }
+        request.onsuccess = function(e) {
+            db = e.target.result;
+            loadStoredFiles();
+        };
 
-        // التبديل بين التبويبات
-        function switchTab(tabId, btn) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            btn.classList.add('active');
-        }
+        // معالجة رفع الملفات
+        function handleFileUpload(event) {
+            const files = event.target.files;
+            if (!files.length) return;
 
-        // إعدادات الأقسام والبيانات
-        function saveSettings() {
-            appData.settings = {
-                academy: document.getElementById('academyInput').value,
-                directorate: document.getElementById('directorateInput').value,
-                school: document.getElementById('schoolInput').value,
-                teacher: document.getElementById('teacherInput').value
+            const transaction = db.transaction(["files"], "readwrite");
+            const store = transaction.objectStore("files");
+
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const fileData = {
+                        name: file.name,
+                        type: file.type,
+                        size: (file.size / 1024).toFixed(1) + " KB",
+                        data: e.target.result,
+                        date: new Date().toLocaleDateString('ar-MA')
+                    };
+                    store.add(fileData);
+                };
+                reader.readAsDataURL(file);
+            });
+
+            transaction.oncomplete = function() {
+                loadStoredFiles();
+                event.target.value = "";
             };
-            saveData();
-            alert('تم حفظ البيانات بنجاح!');
         }
 
-        function addSection() {
-            const name = document.getElementById('newSectionName').value;
-            if(name && !appData.sections.includes(name)) {
-                appData.sections.push(name);
-                saveData();
-                renderSections();
-                document.getElementById('newSectionName').value = '';
-            }
-        }
+        // تحميل وعرض قائمة الملفات المحفوظة
+        function loadStoredFiles() {
+            if (!db) return;
+            const transaction = db.transaction(["files"], "readonly");
+            const store = transaction.objectStore("files");
+            const request = store.getAll();
 
-        function renderSections() {
-            const select = document.getElementById('sectionSelect');
-            select.innerHTML = '<option value="">-- اختر القسم --</option>';
-            appData.sections.forEach(sec => {
-                select.innerHTML += `<option value="${sec}">${sec}</option>`;
-            });
-        }
+            request.onsuccess = function() {
+                const files = request.result;
+                const container = document.getElementById('fileListContainer');
+                document.getElementById('fileCount').innerText = files.length;
 
-        function loadSessions() {
-            const selected = document.getElementById('sectionSelect').value;
-            const container = document.getElementById('sessionsContainer');
-            container.innerHTML = '';
-
-            const filtered = appData.sessions.filter(s => s.section === selected);
-            if(filtered.length === 0) {
-                container.innerHTML = '<p style="color:#64748b;">لا توجد حصص مضافة لهذا القسم.</p>';
-                return;
-            }
-
-            filtered.forEach(s => {
-                let statusClass = s.status === 0 ? 'status-not-started' : (s.status === 1 ? 'status-in-progress' : 'status-completed');
-                let statusText = s.status === 0 ? 'غير منجزة' : (s.status === 1 ? 'غير مكتملة' : 'منجزة');
-
-                container.innerHTML += `
-                    <div class="session-card">
-                        <div>
-                            <span class="text-link" onclick="openTextModal('${s.title}')">${s.title}</span>
-                            <div style="font-size:0.8rem; color:#64748b;">التاريخ: ${s.date || '---'}</div>
-                        </div>
-                        <button class="status-btn ${statusClass}" onclick="toggleStatus(${s.id})">${statusText}</button>
-                    </div>
-                `;
-            });
-        }
-
-        function toggleStatus(id) {
-            const session = appData.sessions.find(s => s.id === id);
-            if(session) {
-                session.status = (session.status + 1) % 3;
-                session.date = new Date().toLocaleDateString('ar-MA');
-                saveData();
-                loadSessions();
-            }
-        }
-
-        // ------- تفاعليات النافذة والمؤقت والقراءة -------
-        let currentFontSize = 18;
-        let errors = 0;
-
-        function openTextModal(title) {
-            document.getElementById('modalTitle').innerText = title;
-            const text = "جلس خالدٌ في الفناءِ يتأملُ الأشجارَ والعصافيرَ المغردةَ فوقَ الأغصانِ المرتفعةِ بكلِ فرحٍ وسعادةٍ.";
-            const container = document.getElementById('textContainer');
-            
-            // تقسيم النص إلى كلمات تفاعلية
-            container.innerHTML = text.split(' ').map(word => `<span class="word-span" onclick="markLastRead(this)" ondblclick="markError(this)">${word}</span>`).join(' ');
-            
-            document.getElementById('textModal').style.display = 'flex';
-            errors = 0;
-            document.getElementById('errorCount').innerText = errors;
-        }
-
-        function closeModal() {
-            document.getElementById('textModal').style.display = 'none';
-        }
-
-        function markError(element) {
-            element.classList.toggle('error');
-            errors = document.querySelectorAll('.word-span.error').length;
-            document.getElementById('errorCount').innerText = errors;
-        }
-
-        function markLastRead(element) {
-            document.querySelectorAll('.word-span').forEach(el => el.classList.remove('last-read'));
-            element.classList.add('last-read');
-        }
-
-        function toggleSingleAnswer(id) {
-            const box = document.getElementById(id);
-            box.style.display = (box.style.display === 'block') ? 'none' : 'block';
-        }
-
-        function toggleAnswers() {
-            document.querySelectorAll('.answer-box').forEach(box => {
-                box.style.display = (box.style.display === 'block') ? 'none' : 'block';
-            });
-        }
-
-        function changeFontSize(delta) {
-            currentFontSize += delta;
-            document.getElementById('textContainer').style.fontSize = currentFontSize + 'px';
-        }
-
-        // المؤقت
-        let timer;
-        function startTimer() {
-            let seconds = 60;
-            clearInterval(timer);
-            timer = setInterval(() => {
-                seconds--;
-                document.getElementById('timerDisplay').innerText = `00:${seconds < 10 ? '0' : ''}${seconds}`;
-                if(seconds <= 0) {
-                    clearInterval(timer);
-                    alert('انتهى الوقت!');
+                if (files.length === 0) {
+                    container.innerHTML = `<p style="color:#6b7280; text-align:center; padding: 10px;">لا توجد ملفات محفوظة حالياً. قم برفع ملفاتك لتبقى محفوظة هنا.</p>`;
+                    return;
                 }
-            }, 1000);
-        }
 
-        // ------- التصدير والاستيراد والوضع الليلي -------
-        function exportData() {
-            const blob = new Blob([JSON.stringify(appData)], { type: 'application/json' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'bawsala_backup.json';
-            a.click();
-        }
+                container.innerHTML = "";
+                files.forEach(file => {
+                    let iconClass = "fa-file icon-generic";
+                    let ext = file.name.split('.').pop().toLowerCase();
 
-        function importData(e) {
-            const file = e.target.files[0];
-            if(!file) return;
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                appData = JSON.parse(event.target.result);
-                saveData();
-                alert('تم استرجاع البيانات بنجاح!');
-                location.reload();
+                    if (ext === 'pdf') iconClass = "fa-file-pdf icon-pdf";
+                    else if (['doc', 'docx'].includes(ext)) iconClass = "fa-file-word icon-word";
+                    else if (['ppt', 'pptx'].includes(ext)) iconClass = "fa-file-powerpoint icon-ppt";
+                    else if (['xls', 'xlsx'].includes(ext)) iconClass = "fa-file-excel icon-excel";
+
+                    const fileHTML = `
+                        <div class="file-card">
+                            <div class="file-info">
+                                <i class="fa-solid ${iconClass} file-icon"></i>
+                                <div>
+                                    <div style="font-weight:bold; font-size:0.95rem;">${file.name}</div>
+                                    <div style="font-size:0.8rem; color:#6b7280;">${file.size} — ${file.date}</div>
+                                </div>
+                            </div>
+                            <div class="file-actions">
+                                <button class="btn-icon btn-view" onclick="viewFile(${file.id})"><i class="fa-solid fa-eye"></i> معاينة</button>
+                                <button class="btn-icon btn-download" onclick="downloadFile(${file.id})"><i class="fa-solid fa-download"></i> تنزيل</button>
+                                <button class="btn-icon btn-delete" onclick="deleteFile(${file.id})"><i class="fa-solid fa-trash"></i> حذف</button>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += fileHTML;
+                });
             };
-            reader.readAsText(file);
         }
 
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
+        // معاينة/فتح الملف
+        function viewFile(id) {
+            const transaction = db.transaction(["files"], "readonly");
+            const store = transaction.objectStore("files");
+            store.get(id).onsuccess = function(e) {
+                const file = e.target.result;
+                const win = window.open();
+                win.document.write(`<iframe src="${file.data}" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>`);
+            };
         }
 
-        // التحميل الأولي
-        window.onload = function() {
-            renderSections();
-            if(appData.settings.teacher) {
-                document.getElementById('teacherInput').value = appData.settings.teacher;
-                document.getElementById('schoolInput').value = appData.settings.school;
-                document.getElementById('academyInput').value = appData.settings.academy;
-                document.getElementById('directorateInput').value = appData.settings.directorate;
+        // تنزيل الملف
+        function downloadFile(id) {
+            const transaction = db.transaction(["files"], "readonly");
+            const store = transaction.objectStore("files");
+            store.get(id).onsuccess = function(e) {
+                const file = e.target.result;
+                const a = document.createElement("a");
+                a.href = file.data;
+                a.download = file.name;
+                a.click();
+            };
+        }
+
+        // حذف ملف
+        function deleteFile(id) {
+            if (confirm("هل أنت تأكد من رغبتك في حذف هذا الملف من المحفوظات؟")) {
+                const transaction = db.transaction(["files"], "readwrite");
+                const store = transaction.objectStore("files");
+                store.delete(id).oncomplete = function() {
+                    loadStoredFiles();
+                };
             }
+        }
+
+        // حفظ البيانات محلياً
+        function saveConfig() {
+            localStorage.setItem('teacherName', document.getElementById('teacherName').value);
+            localStorage.setItem('schoolName', document.getElementById('schoolName').value);
+            localStorage.setItem('academicYear', document.getElementById('academicYear').value);
+        }
+
+        // استرجاع البيانات عند الفتح
+        window.onload = function() {
+            if(localStorage.getItem('teacherName')) document.getElementById('teacherName').value = localStorage.getItem('teacherName');
+            if(localStorage.getItem('schoolName')) document.getElementById('schoolName').value = localStorage.getItem('schoolName');
+            if(localStorage.getItem('academicYear')) document.getElementById('academicYear').value = localStorage.getItem('academicYear');
         };
     </script>
 </body>
