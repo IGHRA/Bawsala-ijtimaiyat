@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوصلة الاجتماعيات 2026 — رفيق أستاذ الاجتماعيات</title>
+    <!-- خط تجوال وأيقونات FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #1b3a4b;
+            --secondary: #006466;
+            --accent: #d4a373;
+            --bg-light: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #2b2d42;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* الهيدر الرئيسي */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .teacher-info-bar {
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .teacher-info-bar input {
+            padding: 6px 12px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 5px;
+            background: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        /* شريط التبويبات */
+        nav {
+            background-color: #111827;
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: #d1d5db;
+            padding: 14px 20px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav button:hover, nav button.active {
+            color: white;
+            background-color: var(--secondary);
+            border-bottom: 3px solid var(--accent);
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 15px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* البطاقات والشبكة */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+            border-right: 5px solid var(--secondary);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* أداة المصطلحات */
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .term-item {
+            background: #f3f4f6;
+            margin-bottom: 10px;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .term-title {
+            font-weight: bold;
+            color: var(--primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .term-desc {
+            display: none;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.95rem;
+            color: #4b5563;
+        }
+
+        /* أزرار تحميل الموارد */
+        .btn-action {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-action:hover {
+            background-color: var(--primary);
+        }
+
+        .btn-computer {
+            background-color: #2563eb;
+        }
+        .btn-computer:hover {
+            background-color: #1d4ed8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #111827;
+            color: white;
+            margin-top: 50px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر والمعلومات الشخصية -->
+    <header>
+        <h1>🧭 بوصلة الاجتماعيات 2026</h1>
+        <p>رفيقك الرقمي لتدبير حصص ودعامات مادة الاجتماعيات — الثانوي الإعدادي</p>
+        
+        <div class="teacher-info-bar">
+            <input type="text" id="teacherName" placeholder="اسم الأستاذ(ة)..." onchange="saveConfig()">
+            <input type="text" id="schoolName" placeholder="اسم المؤسسة..." onchange="saveConfig()">
+            <input type="text" id="academicYear" value="2025/2026" onchange="saveConfig()">
+                   <input type="text" id="schoolName" placeholder="الاكاديمية الجهوية..." onchange="saveConfig()">
+             <input type="text" id="schoolName" placeholder="االمديرية..." onchange="saveConfig()">
+             <input type="text" id="schoolName" placeholder="القسم..." onchange="saveConfig()">
+              <input type="text" id="schoolName" placeholder="المادة..." onchange="saveConfig()">
+        </div>
+    </header>
+
+    <!-- شريط التبويبات -->
+    <nav>
+        <button class="tab-btn active" onclick="openTab('terms')"><i class="fa-solid fa-book-bookmark"></i> المصطلحات والمفاهيم</button>
+        <button class="tab-btn" onclick="openTab('methodology')"><i class="fa-solid fa-compass-drafting"></i> شبكات النهج المادي</button>
+        <button class="tab-btn" onclick="openTab('documents')"><i class="fa-solid fa-file-pdf"></i> مولّد الوثائق (PDF)</button>
+        <button class="tab-btn" onclick="openTab('pc')"><i class="fa-solid fa-desktop"></i> الوصول إلى الحاسوب</button>
+        <button class="tab-btn" onclick="openTab('tracking')"><i class="fa-solid fa-chart-user"></i> تتبّع التعثرات والتقويم</button>
+    </nav>
+
+    <div class="container">
+
+        <!-- تبويب المصطلحات -->
+        <div id="terms" class="tab-content active">
+            <input type="text" id="searchInput" class="search-box" placeholder="🔍 إبحث عن مصطلح أو مفهوم (تاريخ، جغرافيا، مواطنة)..." onkeyup="filterTerms()">
+            
+            <div id="termsList">
+                <div class="term-item">
+                    <div class="term-title" onclick="toggleDesc(this)">
+                        <span>النهج التاريخي (التاريخ)</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="term-desc">خطوات منهجية يعتمدها المؤرخ لدراسة الأحداث الماضية وتتكون من ثلاث مراحل: التعريف، التفسير، والتركيب.</div>
+                </div>
+
+                <div class="term-item">
+                    <div class="term-title" onclick="toggleDesc(this)">
+                        <span>المجال الجغرافي (الجغرافيا)</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="term-desc">الإطار المكاني الذي تتفاعل فيه الظواهر الطبيعية والبشرية والتجهيزات الاقتصادية.</div>
+                </div>
+
+                <div class="term-item">
+                    <div class="term-title" onclick="toggleDesc(this)">
+                        <span>السلوك المدني (التربية على المواطنة)</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="term-desc">كل ممارسة أفراد ومجموعات تعكس الالتزام بالقوانين واحترام حقوق الآخرين والحفاظ على المصلحة العامة.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- تبويب شبكات النهج المادي -->
+        <div id="methodology" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <h3><i class="fa-solid fa-hourglass-start"></i> خطوات النهج التاريخي</h3>
+                    <ul>
+                        <li><b>1. التعريف:</b> تحديد المفهوم التاريخي، الزمان، والمكان.</li>
+                        <li><b>2. التفسير:</b> البحث عن الأسباب والعوامل المفسرة للحدث.</li>
+                        <li><b>3. التركيب:</b> ربط الأسباب بالنتائج وصياغة خلاصة تركيبية.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-globe"></i> خطوات النهج الجغرافي</h3>
+                    <ul>
+                        <li><b>1. الوصف:</b> تحديد شكل الظاهرة، توزيعها الجغرافي وتطورها.</li>
+                        <li><b>2. التفسير:</b> الكشف عن العوامل والأسباب المفسرة لبنية الظاهرة.</li>
+                        <li><b>3. التعميم:</b> استخلاص مبادئ أو قوانين تعمم على ظواهر مماثلة.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- تبويب مولد الوثائق -->
+        <div id="documents" class="tab-content">
+            <div class="card">
+                <h3><i class="fa-solid fa-print"></i> استخراج الوثائق التربوية الجاهزة</h3>
+                <p>اضغط على أي زر أدناه لتصفح أو تحميل الوثائق الرسمية مباشرة:</p>
+                
+                <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+                    <a href="https://drive.google.com" target="_blank" class="btn-action">
+                        <i class="fa-solid fa-file-pdf"></i> غلاف دفتر النصوص
+                    </a>
+                    <a href="https://drive.google.com" target="_blank" class="btn-action">
+                        <i class="fa-solid fa-file-pdf"></i> البطاقة التقنية (الجذاذة)
+                    </a>
+                    <a href="https://drive.google.com" target="_blank" class="btn-action">
+                        <i class="fa-solid fa-file-pdf"></i> شبكة تفريغ التقويم
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- تبويب الوصول إلى الحاسوب -->
+        <div id="pc" class="tab-content">
+            <div class="card">
+                <h3><i class="fa-solid fa-laptop-code"></i> استعراض وفتح ملفات الحاسوب المحلية</h3>
+                <p>يمكنك استخدام الأزرار التالية لاستعراض ملفات الحاسوب الخاص بك أو العرض المباشر:</p>
+                
+                <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 15px; max-width: 500px;">
+                    <!-- زر فتح ملف من الحاسوب -->
+                    <label class="btn-action btn-computer" style="cursor: pointer; width: fit-content;">
+                        <i class="fa-solid fa-folder-open"></i> استعراض ملفات الحاسوب (Open Local File)
+                        <input type="file" id="localFileInput" style="display: none;" onchange="openLocalFile(event)">
+                    </label>
+
+                    <div id="fileStatus" style="font-size: 0.95rem; color: #166534; font-weight: bold;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- تبويب تتبع التعثرات -->
+        <div id="tracking" class="tab-content">
+            <div class="card">
+                <h3><i class="fa-solid fa-list-check"></i> بطاقة تتبّع مهارات الاجتماعيات</h3>
+                <p>تتبع مدى تحكم التلاميذ في المهارات الأساسية (تحليل نصوص، توطين في الخريطة، قراءة خط زمني).</p>
+                <button class="btn-action" style="margin-top:15px;"><i class="fa-solid fa-plus"></i> إضافة قسم جديد</button>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة &copy; 2026 — تطبيق «بوصلة الاجتماعيات»</p>
+    </footer>
+
+    <script>
+        // التبديل بين التبويبات
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            if(event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+        }
+
+        // إظهار وإخفاء شرح المصطلحات
+        function toggleDesc(element) {
+            let desc = element.nextElementSibling;
+            desc.style.display = (desc.style.display === 'block') ? 'none' : 'block';
+        }
+
+        // تصفية وبحث المصطلحات
+        function filterTerms() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let items = document.querySelectorAll('.term-item');
+
+            items.forEach(item => {
+                let text = item.innerText.toLowerCase();
+                item.style.display = text.includes(input) ? 'block' : 'none';
+            });
+        }
+
+        // دالة فتح ملف محلي من الحاسوب
+        function openLocalFile(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const fileURL = URL.createObjectURL(file);
+                window.open(fileURL, '_blank');
+                document.getElementById('fileStatus').innerText = `تم فتح الملف: ${file.name}`;
+            }
+        }
+
+        // حفظ البيانات محلياً على الجهاز
+        function saveConfig() {
+            localStorage.setItem('teacherName', document.getElementById('teacherName').value);
+            localStorage.setItem('schoolName', document.getElementById('schoolName').value);
+            localStorage.setItem('academicYear', document.getElementById('academicYear').value);
+        }
+
+        // استرجاع البيانات عند الفتح
+        window.onload = function() {
+            if(localStorage.getItem('teacherName')) document.getElementById('teacherName').value = localStorage.getItem('teacherName');
+            if(localStorage.getItem('schoolName')) document.getElementById('schoolName').value = localStorage.getItem('schoolName');
+            if(localStorage.getItem('academicYear')) document.getElementById('academicYear').value = localStorage.getItem('academicYear');
+        };
+    </script>
+</body>
+</html>
