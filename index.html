@@ -130,6 +130,7 @@
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.04);
             border-right: 5px solid var(--secondary);
+            margin-bottom: 20px;
         }
 
         .card h3 {
@@ -174,7 +175,7 @@
             color: #4b5563;
         }
 
-        /* أزرار تحميل الموارد */
+        /* أزرار العامة */
         .btn-action {
             background-color: var(--secondary);
             color: white;
@@ -186,7 +187,6 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-top: 10px;
             text-decoration: none;
             font-size: 0.95rem;
         }
@@ -195,12 +195,75 @@
             background-color: var(--primary);
         }
 
-        .btn-computer {
-            background-color: #2563eb;
+        /* تصميم منطقة رفع الملفات */
+        .upload-area {
+            border: 2px dashed #006466;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            background: #f0fdf4;
+            cursor: pointer;
+            transition: 0.3s;
         }
-        .btn-computer:hover {
-            background-color: #1d4ed8;
+        .upload-area:hover {
+            background: #e6f4f1;
         }
+
+        /* قائمة الملفات المرفوعة */
+        .file-list {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .file-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .file-icon {
+            font-size: 1.5rem;
+        }
+
+        .icon-pdf { color: #dc2626; }
+        .icon-word { color: #2563eb; }
+        .icon-ppt { color: #ea580c; }
+        .icon-excel { color: #16a34a; }
+        .icon-generic { color: #6b7280; }
+
+        .file-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: white;
+        }
+
+        .btn-view { background-color: #2563eb; }
+        .btn-download { background-color: #059669; }
+        .btn-delete { background-color: #dc2626; }
 
         footer {
             text-align: center;
@@ -222,11 +285,12 @@
         <div class="teacher-info-bar">
             <input type="text" id="teacherName" placeholder="اسم الأستاذ(ة)..." onchange="saveConfig()">
             <input type="text" id="schoolName" placeholder="اسم المؤسسة..." onchange="saveConfig()">
-            <input type="text" id="academicYear" value="2025/2026" onchange="saveConfig()">
-                   <input type="text" id="schoolName" placeholder="الاكاديمية الجهوية..." onchange="saveConfig()">
+             <input type="text" id="schoolName" placeholder="الاكاديمية الجهوية..." onchange="saveConfig()">
              <input type="text" id="schoolName" placeholder="االمديرية..." onchange="saveConfig()">
              <input type="text" id="schoolName" placeholder="القسم..." onchange="saveConfig()">
               <input type="text" id="schoolName" placeholder="المادة..." onchange="saveConfig()">
+
+            <input type="text" id="academicYear" value="2025/2026" onchange="saveConfig()">
         </div>
     </header>
 
@@ -235,7 +299,7 @@
         <button class="tab-btn active" onclick="openTab('terms')"><i class="fa-solid fa-book-bookmark"></i> المصطلحات والمفاهيم</button>
         <button class="tab-btn" onclick="openTab('methodology')"><i class="fa-solid fa-compass-drafting"></i> شبكات النهج المادي</button>
         <button class="tab-btn" onclick="openTab('documents')"><i class="fa-solid fa-file-pdf"></i> مولّد الوثائق (PDF)</button>
-        <button class="tab-btn" onclick="openTab('pc')"><i class="fa-solid fa-desktop"></i> الوصول إلى الحاسوب</button>
+        <button class="tab-btn" onclick="openTab('pc')"><i class="fa-solid fa-desktop"></i> رفع وحفظ ملفات الحاسوب</button>
         <button class="tab-btn" onclick="openTab('tracking')"><i class="fa-solid fa-chart-user"></i> تتبّع التعثرات والتقويم</button>
     </nav>
 
@@ -315,20 +379,26 @@
             </div>
         </div>
 
-        <!-- تبويب الوصول إلى الحاسوب -->
+        <!-- تبويب رفع وحفظ ملفات الحاسوب -->
         <div id="pc" class="tab-content">
             <div class="card">
-                <h3><i class="fa-solid fa-laptop-code"></i> استعراض وفتح ملفات الحاسوب المحلية</h3>
-                <p>يمكنك استخدام الأزرار التالية لاستعراض ملفات الحاسوب الخاص بك أو العرض المباشر:</p>
-                
-                <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 15px; max-width: 500px;">
-                    <!-- زر فتح ملف من الحاسوب -->
-                    <label class="btn-action btn-computer" style="cursor: pointer; width: fit-content;">
-                        <i class="fa-solid fa-folder-open"></i> استعراض ملفات الحاسوب (Open Local File)
-                        <input type="file" id="localFileInput" style="display: none;" onchange="openLocalFile(event)">
-                    </label>
+                <h3><i class="fa-solid fa-cloud-arrow-up"></i> رفع وحفظ المستندات والدروس (PDF, Word, PPT)</h3>
+                <p style="margin-bottom:15px;">رفع ملفاتك الخاصة للحفظ الدائم داخل المتصفح لسهولة فتحها أو تنزيلها في أي وقت:</p>
 
-                    <div id="fileStatus" style="font-size: 0.95rem; color: #166534; font-weight: bold;"></div>
+                <!-- منطقة الرفع -->
+                <div class="upload-area" onclick="document.getElementById('fileUploadInput').click()">
+                    <i class="fa-solid fa-folder-plus" style="font-size: 2.5rem; color: #006466; margin-bottom: 10px;"></i>
+                    <p style="font-weight: bold;">اضغط هنا لرفع الملفات من حاسوبك</p>
+                    <p style="font-size: 0.85rem; color: #6b7280;">يدعم ملفات: PDF, Word (DOCX), PowerPoint (PPTX), Excel وغيرها</p>
+                    <input type="file" id="fileUploadInput" multiple style="display: none;" onchange="handleFileUpload(event)">
+                </div>
+            </div>
+
+            <!-- قائمة الملفات المرفوعة والمحفوظة -->
+            <div class="card">
+                <h3><i class="fa-solid fa-box-archive"></i> الملفات المحفوظة (<span id="fileCount">0</span>)</h3>
+                <div id="fileListContainer" class="file-list">
+                    <p style="color:#6b7280; text-align:center; padding: 10px;">لا توجد ملفات محفوظة حالياً. قم برفع ملفاتك لتبقى محفوظة هنا.</p>
                 </div>
             </div>
         </div>
@@ -377,17 +447,135 @@
             });
         }
 
-        // دالة فتح ملف محلي من الحاسوب
-        function openLocalFile(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const fileURL = URL.createObjectURL(file);
-                window.open(fileURL, '_blank');
-                document.getElementById('fileStatus').innerText = `تم فتح الملف: ${file.name}`;
+        // ------- نظام إدارة وحفظ الملفات المحلي (IndexedDB) -------
+        let db;
+        const request = indexedDB.open("BawsalaDB", 1);
+
+        request.onupgradeneeded = function(e) {
+            db = e.target.result;
+            if (!db.objectStoreNames.contains("files")) {
+                db.createObjectStore("files", { keyPath: "id", autoIncrement: true });
+            }
+        };
+
+        request.onsuccess = function(e) {
+            db = e.target.result;
+            loadStoredFiles();
+        };
+
+        // معالجة رفع الملفات
+        function handleFileUpload(event) {
+            const files = event.target.files;
+            if (!files.length) return;
+
+            const transaction = db.transaction(["files"], "readwrite");
+            const store = transaction.objectStore("files");
+
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const fileData = {
+                        name: file.name,
+                        type: file.type,
+                        size: (file.size / 1024).toFixed(1) + " KB",
+                        data: e.target.result,
+                        date: new Date().toLocaleDateString('ar-MA')
+                    };
+                    store.add(fileData);
+                };
+                reader.readAsDataURL(file);
+            });
+
+            transaction.oncomplete = function() {
+                loadStoredFiles();
+                event.target.value = "";
+            };
+        }
+
+        // تحميل وعرض قائمة الملفات المحفوظة
+        function loadStoredFiles() {
+            if (!db) return;
+            const transaction = db.transaction(["files"], "readonly");
+            const store = transaction.objectStore("files");
+            const request = store.getAll();
+
+            request.onsuccess = function() {
+                const files = request.result;
+                const container = document.getElementById('fileListContainer');
+                document.getElementById('fileCount').innerText = files.length;
+
+                if (files.length === 0) {
+                    container.innerHTML = `<p style="color:#6b7280; text-align:center; padding: 10px;">لا توجد ملفات محفوظة حالياً. قم برفع ملفاتك لتبقى محفوظة هنا.</p>`;
+                    return;
+                }
+
+                container.innerHTML = "";
+                files.forEach(file => {
+                    let iconClass = "fa-file icon-generic";
+                    let ext = file.name.split('.').pop().toLowerCase();
+
+                    if (ext === 'pdf') iconClass = "fa-file-pdf icon-pdf";
+                    else if (['doc', 'docx'].includes(ext)) iconClass = "fa-file-word icon-word";
+                    else if (['ppt', 'pptx'].includes(ext)) iconClass = "fa-file-powerpoint icon-ppt";
+                    else if (['xls', 'xlsx'].includes(ext)) iconClass = "fa-file-excel icon-excel";
+
+                    const fileHTML = `
+                        <div class="file-card">
+                            <div class="file-info">
+                                <i class="fa-solid ${iconClass} file-icon"></i>
+                                <div>
+                                    <div style="font-weight:bold; font-size:0.95rem;">${file.name}</div>
+                                    <div style="font-size:0.8rem; color:#6b7280;">${file.size} — ${file.date}</div>
+                                </div>
+                            </div>
+                            <div class="file-actions">
+                                <button class="btn-icon btn-view" onclick="viewFile(${file.id})"><i class="fa-solid fa-eye"></i> معاينة</button>
+                                <button class="btn-icon btn-download" onclick="downloadFile(${file.id})"><i class="fa-solid fa-download"></i> تنزيل</button>
+                                <button class="btn-icon btn-delete" onclick="deleteFile(${file.id})"><i class="fa-solid fa-trash"></i> حذف</button>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += fileHTML;
+                });
+            };
+        }
+
+        // معاينة/فتح الملف
+        function viewFile(id) {
+            const transaction = db.transaction(["files"], "readonly");
+            const store = transaction.objectStore("files");
+            store.get(id).onsuccess = function(e) {
+                const file = e.target.result;
+                const win = window.open();
+                win.document.write(`<iframe src="${file.data}" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>`);
+            };
+        }
+
+        // تنزيل الملف
+        function downloadFile(id) {
+            const transaction = db.transaction(["files"], "readonly");
+            const store = transaction.objectStore("files");
+            store.get(id).onsuccess = function(e) {
+                const file = e.target.result;
+                const a = document.createElement("a");
+                a.href = file.data;
+                a.download = file.name;
+                a.click();
+            };
+        }
+
+        // حذف ملف
+        function deleteFile(id) {
+            if (confirm("هل أنت تأكد من رغبتك في حذف هذا الملف من المحفوظات؟")) {
+                const transaction = db.transaction(["files"], "readwrite");
+                const store = transaction.objectStore("files");
+                store.delete(id).oncomplete = function() {
+                    loadStoredFiles();
+                };
             }
         }
 
-        // حفظ البيانات محلياً على الجهاز
+        // حفظ البيانات محلياً
         function saveConfig() {
             localStorage.setItem('teacherName', document.getElementById('teacherName').value);
             localStorage.setItem('schoolName', document.getElementById('schoolName').value);
